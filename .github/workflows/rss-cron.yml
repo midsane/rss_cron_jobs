@@ -1,9 +1,7 @@
-name: Daily RSS Cron
+name: run-node-script
 
 on:
-  schedule:
-    - cron: '25 15 * * *' 
-  workflow_dispatch:
+  workflow_dispatch: # Trigger manually, or adjust (e.g., schedule or push)
 
 jobs:
   run-node-script:
@@ -16,12 +14,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Run RSS Parser
-        run: node fetch_rss.js
+      - name: Debug Env (Safe)
+        run: echo "REDIS_KEY is ${REDIS_KEY:0:5}*****"
         env:
           REDIS_KEY: ${{ secrets.REDIS_KEY }}
+
+      - name: Run RSS Parser
+        env:
+          REDIS_KEY: ${{ secrets.REDIS_KEY }}
+        run: node fetch_rss.js
