@@ -3,7 +3,7 @@ name: run-node-script
 on:
   workflow_dispatch:
   schedule:
-    - cron: "43 15 * * *"
+    - cron: "45 15 * * *"
 
 jobs:
   run-node-script:
