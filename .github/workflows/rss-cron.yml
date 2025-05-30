@@ -1,7 +1,9 @@
 name: run-node-script
 
 on:
-  workflow_dispatch: # Trigger manually, or adjust (e.g., schedule or push)
+  workflow_dispatch:
+  schedule:
+    - cron: "43 15 * * *"
 
 jobs:
   run-node-script:
@@ -18,11 +20,6 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-
-      - name: Debug Env (Safe)
-        run: echo "REDIS_KEY is ${REDIS_KEY:0:5}*****"
-        env:
-          REDIS_KEY: ${{ secrets.REDIS_KEY }}
 
       - name: Run RSS Parser
         env:
