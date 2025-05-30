@@ -1,0 +1,25 @@
+name: Daily RSS Cron
+
+on:
+  schedule:
+    - cron: '0 5 * * *' 
+  workflow_dispatch:
+
+jobs:
+  run-node-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run RSS Parser
+        run: node fetch_rss.js
