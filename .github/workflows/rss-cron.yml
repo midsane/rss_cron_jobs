@@ -2,7 +2,7 @@ name: Daily RSS Cron
 
 on:
   schedule:
-    - cron: '15 15 * * *' 
+    - cron: '25 15 * * *' 
   workflow_dispatch:
 
 jobs:
@@ -23,3 +23,5 @@ jobs:
 
       - name: Run RSS Parser
         run: node fetch_rss.js
+        env:
+          REDIS_KEY: ${{ secrets.REDIS_KEY }}
